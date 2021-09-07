@@ -1,10 +1,6 @@
 syntax = "proto3";
 package tutorial;
-
-option optimize_for = CODE_SIZE;
-
 import "google/protobuf/timestamp.proto";
-
 option go_package = "protobuf-example/";
 
 enum PhoneType {
@@ -26,7 +22,6 @@ message Person {
   google.protobuf.Timestamp last_updated = 5;
 }
 
-// Our address book file is just one of these.
 message AddressBook {
   repeated Person people = 1;
 }
