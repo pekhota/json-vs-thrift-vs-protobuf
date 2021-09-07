@@ -4,9 +4,9 @@ import (
 	"github.com/bxcodec/faker/v3"
 	"github.com/golang/protobuf/proto"
 	"github.com/montanaflynn/stats"
+	pb "github.com/pekhota/json-vs-thrift-vs-protobuf/internal/pkg/protobuf-example"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"log"
-	pb "speed-test/pkg/protobuf-example"
 )
 
 var protoData [][]byte
@@ -15,7 +15,7 @@ func init() {
 	protoInit()
 }
 
-func protoInit()  {
+func protoInit() {
 	protoData = make([][]byte, 0)
 }
 

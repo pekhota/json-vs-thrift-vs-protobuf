@@ -6,19 +6,19 @@ import (
 	"github.com/apache/thrift/lib/go/thrift"
 	"github.com/bxcodec/faker/v3"
 	"github.com/montanaflynn/stats"
+	"github.com/pekhota/json-vs-thrift-vs-protobuf/internal/pkg/thriftexample"
+	"github.com/pekhota/json-vs-thrift-vs-protobuf/internal/pkg/thrifttimestamp"
 	"log"
-	"speed-test/pkg/thriftexample"
-	"speed-test/pkg/thrifttimestamp"
 	"time"
 )
 
 var thriftData [][]byte
 
-func init()  {
+func init() {
 	thriftInit()
 }
 
-func thriftInit()  {
+func thriftInit() {
 	thriftData = make([][]byte, 0)
 }
 
@@ -32,16 +32,16 @@ func testThriftEncode() float64 {
 			t := time.Now()
 			ts := thrifttimestamp.Timestamp{
 				Seconds: t.Unix(),
-				Nanos: int32(t.Nanosecond()),
+				Nanos:   int32(t.Nanosecond()),
 			}
 			p := thriftexample.Person{
-				ID: int32(i),
-				Name: faker.Name(),
+				ID:    int32(i),
+				Name:  faker.Name(),
 				Email: faker.Email(),
 				Phones: []*thriftexample.PhoneNumber{
 					{
 						Number: faker.Phonenumber(),
-						Type: thriftexample.PhoneType_HOME,
+						Type:   thriftexample.PhoneType_HOME,
 					},
 				},
 				LastUpdated: &ts,

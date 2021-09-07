@@ -2,14 +2,13 @@
 
 package thriftexample
 
-import(
+import (
 	"bytes"
 	"context"
 	"fmt"
-	"time"
 	"github.com/apache/thrift/lib/go/thrift"
-	"speed-test/pkg/thrifttimestamp"
-
+	"github.com/pekhota/json-vs-thrift-vs-protobuf/internal/pkg/thrifttimestamp"
+	"time"
 )
 
 // (needed to ensure safety because of naive import list construction.)
@@ -23,4 +22,3 @@ var _ = thrifttimestamp.GoUnusedProtection__
 
 func init() {
 }
-

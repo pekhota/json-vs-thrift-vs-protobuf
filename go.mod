@@ -1,4 +1,4 @@
-module speed-test
+module github.com/pekhota/json-vs-thrift-vs-protobuf
 
 go 1.16
 

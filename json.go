@@ -4,22 +4,22 @@ import (
 	"encoding/json"
 	"github.com/bxcodec/faker/v3"
 	"github.com/montanaflynn/stats"
+	"github.com/pekhota/json-vs-thrift-vs-protobuf/internal/pkg/json-example"
 	"log"
-	json_example "speed-test/pkg/json-example"
 	"time"
 )
 
 var jsonData [][]byte
 
-func init()  {
+func init() {
 	jsonInit()
 }
 
-func jsonInit()  {
+func jsonInit() {
 	jsonData = make([][]byte, 0)
 }
 
-func testJsonEncode() float64  {
+func testJsonEncode() float64 {
 	data := make([]float64, 0)
 
 	makeJsonPeople := func(n int) []json_example.JsonPerson {
@@ -28,8 +28,8 @@ func testJsonEncode() float64  {
 		for i := 0; i < n; i++ {
 			t := time.Now()
 			l = append(l, json_example.JsonPerson{
-				Id: int32(i),
-				Name: faker.Name(),
+				Id:    int32(i),
+				Name:  faker.Name(),
 				Email: faker.Email(),
 				Phones: []json_example.JsonPhoneNumber{
 					{
