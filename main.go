@@ -11,29 +11,36 @@ const InternalIterations = 1000
 const NumberOfPersons = 100
 
 func main() {
-	testProtocol("Json", func() (time.Duration, time.Duration, float64) {
+	m := make(map[string]func() (time.Duration, time.Duration, float64))
+	m["Json"] = func() (time.Duration, time.Duration, float64) {
 		jsonInit()
 		jsonEncodeTime, jsonSize := measure(testJsonEncode)
-		jsonDecodeTime, _  		 := measure(testJsonDecode)
+		jsonDecodeTime, _ := measure(testJsonDecode)
 
 		return jsonEncodeTime, jsonDecodeTime, jsonSize
-	})
-
-	testProtocol("Protobuf", func() (time.Duration, time.Duration, float64) {
+	}
+	m["Protobuf"] = func() (time.Duration, time.Duration, float64) {
 		protoInit()
 		jsonEncodeTime, jsonSize := measure(testProtoEncode)
-		jsonDecodeTime, _  		 := measure(testProtoDecode)
+		jsonDecodeTime, _ := measure(testProtoDecode)
 
 		return jsonEncodeTime, jsonDecodeTime, jsonSize
-	})
-
-	testProtocol("Thrift Compact", func() (time.Duration, time.Duration, float64) {
+	}
+	m["Thrift Compact"] = func() (time.Duration, time.Duration, float64) {
 		thriftInit()
 		jsonEncodeTime, jsonSize := measure(testThriftEncode)
-		jsonDecodeTime, _  		 := measure(testThriftDecode)
+		jsonDecodeTime, _ := measure(testThriftDecode)
 
 		return jsonEncodeTime, jsonDecodeTime, jsonSize
-	})
+	}
+
+	for protocol, cb := range m {
+		took, _ := measure(func() float64 {
+			testProtocol(protocol, cb)
+			return 0
+		})
+		log.Println("Took: ", took)
+	}
 }
 
 func measure(cb func() float64) (time.Duration, float64) {
@@ -42,7 +49,7 @@ func measure(cb func() float64) (time.Duration, float64) {
 	return time.Since(now), median
 }
 
-func testProtocol(name string, cb func() (time.Duration, time.Duration, float64))  {
+func testProtocol(name string, cb func() (time.Duration, time.Duration, float64)) {
 	var encodeStats []float64
 	var decodeStats []float64
 	var sizeStats []float64
@@ -79,7 +86,7 @@ func calcMedians(encodeStats, decodeStats, sizeStats []float64) (encodeMedian, d
 	return
 }
 
-func PrintMetrics(encodeMedian, decodeMedian, sizeMedian float64)  {
+func PrintMetrics(encodeMedian, decodeMedian, sizeMedian float64) {
 	log.Println("Encode median time: ", time.Duration(encodeMedian))
 	log.Println("Decode median time: ", time.Duration(decodeMedian))
 	log.Println("Size median bytes: ", sizeMedian)

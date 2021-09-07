@@ -4,11 +4,11 @@ Comparison between json, thrift and protobuf protocols
 
 ## Results 
 
-| Protocol | Encoding time | Decoding time | Payload size (bytes) |
-|----------|---------------|---------------|----------------------|
-| Json     | 216.74875ms   | 210.512125ms  | 17715                |
-| Protobuf | 198.921792ms  | 32.473791ms   | 7811                 |
-| Thrift   | 224.548ms     | 46.453167ms   | 7853                 |
+| Protocol | Encoding time | Decoding time | Payload size (bytes) | Test duration |
+|----------|---------------|---------------|----------------------|---------------|
+| Json     | 216.74875ms   | 210.512125ms  | 17715                | 2.199822167s  |
+| Protobuf | 198.921792ms  | 32.473791ms   | 7811                 | 1.315487459s  |
+| Thrift   | 224.548ms     | 46.453167ms   | 7853                 | 1.438012417s  |
 
 ## Summary 
 
